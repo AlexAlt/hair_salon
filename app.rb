@@ -46,6 +46,13 @@ delete('/stylists/:id') do
   redirect('/')
 end
 
+patch('/update_stylist/:id') do
+  name = params.fetch("new_name")
+  @stylist = Stylist.find(params.fetch("id").to_i())
+  @stylist.update({:name => name})
+  redirect("stylists/#{@stylist.id()}")
+end
+
 get('/client_edit/:id') do
   @client = Client.find(params.fetch("id").to_i())
   erb(:client_edit)
@@ -57,4 +64,11 @@ delete('/clients/:id') do
   @client.delete()
   @client = Client.all()
   redirect("stylists/#{stylist_id}")
+end
+
+patch('/update_client/:id') do
+  name = params.fetch("new_name")
+  @client = Client.find(params.fetch("id").to_i())
+  @client.update({:name => name})
+  redirect("stylists/#{@client.stylist_id()}")
 end

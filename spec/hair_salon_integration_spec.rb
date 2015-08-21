@@ -57,6 +57,17 @@ describe('removing a stylist from the record', {:type => :feature}) do
   end
 end
 
+describe('updating stylist name', {:type => :feature}) do
+  it('allows user to update a stylist name') do
+    stylist = Stylist.new({:name => "River", :id => nil})
+    stylist.save()
+    visit("/stylists/#{stylist.id()}")
+    fill_in('new_name', :with => "River Tam")
+    click_button("Update")
+    expect(page).to have_content("River Tam")
+  end
+end
+
 describe('removing a client from the record', {:type => :feature}) do
   it('allows a user to remove a client') do
     stylist = Stylist.new({:name => "River", :id => nil})
@@ -66,5 +77,18 @@ describe('removing a client from the record', {:type => :feature}) do
     visit("/client_edit/#{client.id()}")
     click_button("Remove Client")
     expect(page).to have_content("River")
+  end
+end
+
+describe('updating stylist name', {:type => :feature}) do
+  it('allows user to update a stylist name') do
+    stylist = Stylist.new({:name => "River", :id => nil})
+    stylist.save()
+    client = Client.new({:name => "Tyrone", :id => nil, :stylist_id => stylist.id()})
+    client.save()
+    visit("/client_edit/#{client.id()}")
+    fill_in('new_name', :with => "Tyrone Gonzalez")
+    click_button("Update")
+    expect(page).to have_content("Tyrone Gonzalez")
   end
 end
