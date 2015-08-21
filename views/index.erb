@@ -1,0 +1,26 @@
+<h1>Salon Management System</h1>
+
+<h3>Current Stylists</h3>
+
+<% if @stylists.any?() %>
+
+  <% @stylists.each() do |stylist| %>
+    <ul>
+      <li><a href="/stylists/<%= stylist.id() %>"> <%= stylist.name() %> </a></li>
+    </ul>
+  <% end %>
+
+<% else %>
+
+  <p> No current stylists on record. </p>
+
+<% end %>
+
+<form action='/stylists' method='post'>
+  <label for="name"> Add a stylist</label>
+  <input id="name" name="name" type="text">
+
+  <button type='submit'>Add</button>
+</form>
+
+

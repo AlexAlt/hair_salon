@@ -56,7 +56,7 @@ describe(Stylist) do
       stylist.save()
       stylist2 = Stylist.new({:name => "Simon", :id => nil})
       stylist2.save()
-      expect(Stylist.find(stylist.id())).to(eq([stylist]))
+      expect(Stylist.find(stylist.id())).to(eq(stylist))
     end
   end
 
