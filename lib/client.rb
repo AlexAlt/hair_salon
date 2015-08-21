@@ -1,5 +1,6 @@
 class Client
   attr_reader(:name, :id, :stylist_id)
+  attr_writer(:stylist_id)
 
   define_method(:initialize) do |attributes|
     @name = attributes.fetch(:name)

@@ -34,4 +34,32 @@ class Stylist
   define_method(:delete) do
     DB.exec("DELETE FROM stylists WHERE id = #{self.id()}")
   end
+
+  define_singleton_method(:find) do |id|
+    found_stylist = nil
+
+    Stylist.all().each() do |stylist|
+      if stylist.id().== id
+        found_stylist = stylist
+      end
+    end
+    found_stylist
+  end
+
+  define_method(:clients) do
+    returned_clients = DB.exec("SELECT * FROM clients WHERE stylist_id = #{@id};")
+    clients = []
+    returned_clients.each() do |client|
+      name = client.fetch("name")
+      id = client.fetch("id").to_i()
+      stylist_id = client.fetch("stylist_id").to_i()
+      clients.push(Client.new({:name => name, :id => id, :stylist_id => stylist_id}))
+    end
+    clients
+  end
+
+  define_method(:add_client) do |client|
+    client.stylist_id = @id
+    DB.exec("UPDATE clients SET stylist_id = #{@id} WHERE id = #{client.id()};")
+  end
 end

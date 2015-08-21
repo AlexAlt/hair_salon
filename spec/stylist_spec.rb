@@ -16,6 +16,14 @@ describe(Stylist) do
     end
   end
 
+  describe('#id') do
+    it('sets the id when you save it') do
+      stylist = Stylist.new({:name => "River", :id => nil})
+      stylist.save()
+      expect(stylist.id()).to(be_an_instance_of(Fixnum))
+    end
+  end
+
   describe('#==') do
     it('is the same stylist if the name and id are the same') do
       stylist = Stylist.new({:name => "River", :id => nil})
@@ -42,4 +50,32 @@ describe(Stylist) do
     end
   end
 
+  describe('.find') do
+    it('finds a stylist using its id') do
+      stylist = Stylist.new({:name => "River", :id => nil})
+      stylist.save()
+      stylist2 = Stylist.new({:name => "Simon", :id => nil})
+      stylist2.save()
+      expect(Stylist.find(stylist.id())).to(eq([stylist]))
+    end
+  end
+
+  describe('#clients') do
+    it('returns an array of clients for that stylist') do
+      stylist = Stylist.new({:name => "River", :id => nil})
+      stylist.save()
+      expect(stylist.clients()).to(eq([]))
+    end
+  end
+
+  describe('#add_client') do
+    it('adds a client to a stylist') do
+      stylist = Stylist.new({:name => "River", :id => nil})
+      stylist.save()
+      client = Client.new({:name => "Tyrone", :id => nil, :stylist_id => nil})
+      client.save()
+      stylist.add_client(client)
+      expect(stylist.clients()).to(eq([client]))
+    end
+  end
 end 
