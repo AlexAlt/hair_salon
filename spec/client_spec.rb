@@ -24,5 +24,13 @@ describe(Client) do
     end
   end
  
+ describe('#update') do
+  it('updates the name of the client') do
+    client = Client.new({:name => "Tyrone", :id => nil, :stylist_id => nil})
+    client.save()
+    client.update({:name => "Tyrone Gonzalez"})
+    expect(client.name()).to(eq("Tyrone Gonzalez"))
+  end
+ end
 
 end
