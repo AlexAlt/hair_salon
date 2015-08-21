@@ -23,6 +23,16 @@ describe(Client) do
       expect(client).to(eq(client2))
     end
   end
+
+  describe('.find') do
+    it('finds a client using its id') do
+      client =Client.new({:name => "River", :id => nil})
+      client.save()
+      client2 = Client.new({:name => "Simon", :id => nil})
+      client2.save()
+      expect(Client.find(client.id())).to(eq(client))
+    end
+  end
  
  describe('#update') do
   it('updates the name of the client') do

@@ -1,0 +1,9 @@
+<br>
+
+<form action="/clients/<%= @client.id()%>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit">Remove Client</button>
+</form>
+<br>
+
+<p><a href="/stylists/<%= @client.stylist_id() %>">Cancel</a></p>

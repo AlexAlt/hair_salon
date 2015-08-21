@@ -1,0 +1,8 @@
+ <h3>Remove <%= @stylist.name() %> from record</h3>
+
+<form action="/stylists/<%= @stylist.id()%>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit">Delete</button>
+</form>
+
+<p><a href="/stylists/<%= @stylist.id %>">Cancel</a></p>

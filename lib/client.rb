@@ -32,6 +32,17 @@ class Client
     self.id().==(another_client.id())
   end
 
+   define_singleton_method(:find) do |id|
+    found_client = nil
+
+    Client.all().each() do |client|
+      if client.id().== id
+        found_client = client
+      end
+    end
+    found_client
+  end
+
   define_method(:update) do |attributes|
     @name = attributes.fetch(:name)
     DB.exec("UPDATE clients SET name = '#{@name}' WHERE id = #{self.id()};")
